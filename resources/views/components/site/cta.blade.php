@@ -3,21 +3,22 @@
     'description' => 'Fale com nossa equipe de engenharia e receba uma avaliação técnica para vistoria, implantação ou auditoria.',
 ])
 
-<section class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-    <div class="relative overflow-hidden rounded-2xl border border-technical-500/25 bg-navy-900 px-6 py-14 sm:px-14">
-        <div class="absolute inset-0 bg-blueprint opacity-30"></div>
-        <div class="pointer-events-none absolute -top-32 right-0 h-80 w-80 rounded-full bg-technical-500/10 blur-3xl"></div>
-        <div class="relative grid items-center gap-10 lg:grid-cols-[1fr_auto]">
-            <div>
-                <p class="technical-label">Engenharia de campo</p>
-                <h2 class="mt-4 max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">{{ $title }}</h2>
-                <p class="mt-4 max-w-2xl text-base leading-7 text-slate-400">{{ $description }}</p>
+<section class="border-t border-stone-200 bg-stone-100">
+    <div class="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24">
+        <div class="grid grid-cols-12 gap-8">
+            <div class="col-span-12 lg:col-span-8">
+                <p class="flex items-center gap-3 text-xs font-medium tracking-widest text-stone-900/60 uppercase">
+                    <span class="block h-px w-6 bg-accent"></span>
+                    Engenharia de campo
+                </p>
+                <h2 class="mt-5 max-w-2xl text-3xl leading-tight font-light tracking-tight text-balance text-stone-900 md:text-5xl">{{ $title }}</h2>
+                <p class="mt-5 max-w-[60ch] text-base leading-relaxed text-stone-900/60">{{ $description }}</p>
             </div>
-            <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <a href="{{ route('contact.create') }}" class="inline-flex items-center justify-center rounded-lg bg-technical-500 px-6 py-3.5 text-sm font-semibold text-navy-950 transition hover:bg-technical-400">
+            <div class="col-span-12 flex flex-col gap-3 sm:flex-row lg:col-span-4 lg:flex-col lg:justify-end">
+                <a href="{{ route('contact.create') }}" class="inline-flex min-h-[44px] items-center justify-center bg-accent px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors hover:bg-accent/90">
                     Solicitar orçamento
                 </a>
-                <a href="{{ route('services.index') }}" class="inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10">
+                <a href="{{ route('services.index') }}" class="inline-flex min-h-[44px] items-center justify-center border border-stone-300 px-6 py-3 text-sm font-medium tracking-wide text-stone-900 transition-colors hover:border-stone-900">
                     Conhecer serviços
                 </a>
             </div>

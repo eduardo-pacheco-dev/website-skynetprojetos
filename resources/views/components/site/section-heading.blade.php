@@ -1,14 +1,14 @@
 @props(['eyebrow' => null, 'title', 'description' => null, 'align' => 'left'])
 
-<div class="{{ $align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl' }}">
+<div class="{{ $align === 'center' ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl' }}">
     @if($eyebrow)
-        <p class="mb-4 inline-flex items-center gap-3 technical-label">
-            <span class="h-px w-8 bg-technical-500"></span>
+        <p class="mb-4 flex items-center gap-3 text-xs font-medium tracking-widest text-stone-900/60 uppercase {{ $align === 'center' ? 'justify-center' : '' }}">
+            <span class="block h-px w-6 bg-accent"></span>
             {{ $eyebrow }}
         </p>
     @endif
-    <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">{{ $title }}</h2>
+    <h2 class="text-3xl leading-snug font-light tracking-tight text-balance text-stone-900 md:text-4xl">{{ $title }}</h2>
     @if($description)
-        <p class="mt-4 text-base leading-7 text-slate-400">{{ $description }}</p>
+        <p class="mt-5 max-w-[60ch] text-base leading-relaxed text-pretty text-stone-900/60">{{ $description }}</p>
     @endif
 </div>
