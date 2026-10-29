@@ -9,6 +9,8 @@ use App\Filament\Widgets\TrafficChart;
 use App\Models\ContactMessage;
 use App\Models\PageView;
 use App\Models\User;
+use Filament\Auth\Pages\Login;
+use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -17,9 +19,33 @@ class AdminPanelTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Filament::setCurrentPanel(Filament::getPanel('admin'));
+    }
+
     public function test_guests_are_redirected_to_the_login_page(): void
     {
         $this->get('/admin')->assertRedirect('/admin/login');
+    }
+
+    public function test_admin_can_log_in_with_valid_credentials(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'admin@example.com',
+            'password' => 'password',
+        ]);
+
+        $component = Livewire::test(Login::class)
+            ->set('data.email', 'admin@example.com')
+            ->set('data.password', 'password');
+
+        $component->call('authenticate');
+
+        $component->assertHasNoFormErrors();
+        $this->assertAuthenticatedAs($user);
     }
 
     public function test_authenticated_users_can_access_the_admin_panel(): void
