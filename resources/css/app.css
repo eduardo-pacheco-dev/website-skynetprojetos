@@ -6,6 +6,30 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-navy-950: #050d16;
+    --color-navy-900: #081724;
+    --color-navy-800: #0c2233;
+    --color-navy-700: #123149;
+    --color-steel-800: #16232f;
+    --color-steel-700: #1f3343;
+    --color-technical-400: #fb923c;
+    --color-technical-500: #f97316;
+    --color-technical-600: #ea580c;
+    --color-compliance-400: #4ade80;
+    --color-compliance-500: #22c55e;
+
+    --animate-signal: signal 3s ease-in-out infinite;
+
+    @keyframes signal {
+        0%,
+        100% {
+            opacity: 0.35;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
 }
 
 @layer base {
@@ -14,45 +38,65 @@
     }
 
     body {
-        @apply bg-[#04070f] text-slate-300 antialiased;
+        @apply bg-navy-950 text-slate-300 antialiased;
     }
 
     ::selection {
-        @apply bg-cyan-400/30 text-white;
+        @apply bg-technical-500/30 text-white;
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-technical-500;
     }
 }
 
 @layer utilities {
     .bg-grid {
         background-image:
-            linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
-        background-size: 64px 64px;
+            linear-gradient(to right, rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+        background-size: 56px 56px;
+    }
+
+    .bg-blueprint {
+        background-image:
+            linear-gradient(to right, rgba(249, 115, 22, 0.08) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(249, 115, 22, 0.08) 1px, transparent 1px);
+        background-size: 32px 32px;
     }
 
     .text-gradient {
-        @apply bg-gradient-to-r from-cyan-300 via-sky-400 to-violet-400 bg-clip-text text-transparent;
+        @apply bg-gradient-to-r from-technical-400 via-technical-500 to-amber-400 bg-clip-text text-transparent;
     }
 
     .glass-panel {
         @apply border border-white/10 bg-white/[0.03] backdrop-blur-sm;
     }
 
+    .technical-label {
+        @apply text-[11px] font-semibold tracking-[0.22em] text-technical-400 uppercase;
+    }
+
     .reveal {
+        opacity: 1;
+        transform: none;
+    }
+
+    .js .reveal {
         opacity: 0;
-        transform: translateY(24px);
+        transform: translateY(22px);
         transition:
             opacity 0.6s ease-out,
             transform 0.6s ease-out;
     }
 
-    .reveal.is-visible {
+    .js .reveal.is-visible {
         opacity: 1;
         transform: translateY(0);
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .reveal {
+        .js .reveal {
             opacity: 1;
             transform: none;
             transition: none;

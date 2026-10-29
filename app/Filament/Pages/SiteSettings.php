@@ -141,13 +141,13 @@ class SiteSettings extends Page
                 Section::make('Números da empresa')
                     ->schema([
                         TextInput::make('stat_projects')
-                            ->label('Projetos entregues')
+                            ->label('Sites vistoriados')
                             ->numeric(),
                         TextInput::make('stat_clients')
-                            ->label('Clientes atendidos')
+                            ->label('ERBs implantadas')
                             ->numeric(),
                         TextInput::make('stat_years')
-                            ->label('Anos de experiência')
+                            ->label('Estados atendidos')
                             ->numeric(),
                     ])
                     ->columns(3)

@@ -76,10 +76,10 @@ class SitePagesTest extends TestCase
     {
         $this->get(route('about'))
             ->assertOk()
-            ->assertSee('Sobre nós');
+            ->assertSee('Sobre a SkyNet');
 
         $this->get(route('contact.create'))
             ->assertOk()
-            ->assertSee('Enviar mensagem');
+            ->assertSee('Enviar solicitação');
     }
 }

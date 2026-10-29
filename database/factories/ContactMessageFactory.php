@@ -19,8 +19,10 @@ class ContactMessageFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'company' => fake()->optional()->company(),
             'email' => fake()->safeEmail(),
             'phone' => fake()->optional()->phoneNumber(),
+            'service_interest' => fake()->randomElement(['Vistoria técnica / Site Survey', 'Implantação de ERB', 'Projeto de Swap', 'Auditoria EHS e Qualidade', 'Manutenção / O&M']),
             'subject' => fake()->sentence(4),
             'message' => fake()->paragraph(),
             'ip_address' => fake()->ipv4(),

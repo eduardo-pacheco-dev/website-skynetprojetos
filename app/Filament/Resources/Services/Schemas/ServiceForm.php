@@ -37,6 +37,12 @@ class ServiceForm
                         Select::make('icon')
                             ->label('Ícone')
                             ->options([
+                                'survey' => 'Vistoria / Survey',
+                                'tower' => 'Torre / ERB',
+                                'swap' => 'Swap / Modernização',
+                                'audit' => 'Auditoria / Conformidade',
+                                'maintenance' => 'Manutenção / O&M',
+                                'docs' => 'Documentação / As-built',
                                 'code' => 'Código',
                                 'automation' => 'Automação',
                                 'cloud' => 'Nuvem / Integrações',

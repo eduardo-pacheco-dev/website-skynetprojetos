@@ -14,10 +14,11 @@ class ContactMessageTest extends TestCase
     {
         $response = $this->from(route('contact.create'))->post(route('contact.store'), [
             'name' => 'Maria Silva',
+            'company' => 'Aurora Telecom',
             'email' => 'maria@example.com',
             'phone' => '(11) 99999-0000',
-            'subject' => 'Novo sistema',
-            'message' => 'Gostaria de um orçamento para um sistema interno.',
+            'service_interest' => 'Vistoria técnica / Site Survey',
+            'message' => 'Gostaria de um orçamento para vistoria em 20 sites.',
         ]);
 
         $response
@@ -26,8 +27,10 @@ class ContactMessageTest extends TestCase
 
         $this->assertDatabaseHas('contact_messages', [
             'name' => 'Maria Silva',
+            'company' => 'Aurora Telecom',
             'email' => 'maria@example.com',
-            'subject' => 'Novo sistema',
+            'service_interest' => 'Vistoria técnica / Site Survey',
+            'subject' => 'Vistoria técnica / Site Survey',
         ]);
     }
 
@@ -40,7 +43,7 @@ class ContactMessageTest extends TestCase
                 'message' => 'curta',
             ])
             ->assertRedirect(route('contact.create'))
-            ->assertSessionHasErrors(['name', 'email', 'subject', 'message']);
+            ->assertSessionHasErrors(['name', 'email', 'service_interest', 'message']);
 
         $this->assertDatabaseCount('contact_messages', 0);
     }
@@ -51,7 +54,7 @@ class ContactMessageTest extends TestCase
             ->post(route('contact.store'), [
                 'name' => 'Spam Bot',
                 'email' => 'spam@example.com',
-                'subject' => 'Spam',
+                'service_interest' => 'Vistoria técnica / Site Survey',
                 'message' => 'Mensagem automática de spam.',
                 'website' => 'https://spam.example.com',
             ])

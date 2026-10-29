@@ -24,9 +24,10 @@ class StoreContactMessageRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:120'],
+            'company' => ['nullable', 'string', 'max:150'],
             'email' => ['required', 'string', 'email', 'max:180'],
             'phone' => ['nullable', 'string', 'max:30'],
-            'subject' => ['required', 'string', 'max:150'],
+            'service_interest' => ['required', 'string', 'max:100'],
             'message' => ['required', 'string', 'min:10', 'max:5000'],
             'website' => ['prohibited'],
         ];
@@ -39,11 +40,11 @@ class StoreContactMessageRequest extends FormRequest
     {
         return [
             'name.required' => 'Informe seu nome.',
-            'email.required' => 'Informe seu e-mail.',
+            'email.required' => 'Informe seu e-mail corporativo.',
             'email.email' => 'Informe um e-mail válido.',
-            'subject.required' => 'Informe o assunto da mensagem.',
-            'message.required' => 'Escreva sua mensagem.',
-            'message.min' => 'A mensagem deve ter pelo menos :min caracteres.',
+            'service_interest.required' => 'Selecione o serviço de interesse.',
+            'message.required' => 'Descreva sua demanda.',
+            'message.min' => 'A descrição deve ter pelo menos :min caracteres.',
         ];
     }
 
@@ -54,10 +55,11 @@ class StoreContactMessageRequest extends FormRequest
     {
         return [
             'name' => 'nome',
+            'company' => 'empresa',
             'email' => 'e-mail',
             'phone' => 'telefone',
-            'subject' => 'assunto',
-            'message' => 'mensagem',
+            'service_interest' => 'serviço de interesse',
+            'message' => 'descrição da demanda',
         ];
     }
 }

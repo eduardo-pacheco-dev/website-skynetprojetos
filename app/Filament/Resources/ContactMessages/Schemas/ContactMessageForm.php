@@ -19,15 +19,23 @@ class ContactMessageForm
                         TextInput::make('name')
                             ->label('Nome')
                             ->disabled(),
+                        TextInput::make('company')
+                            ->label('Empresa')
+                            ->disabled(),
                         TextInput::make('email')
                             ->label('E-mail')
                             ->disabled(),
                         TextInput::make('phone')
                             ->label('Telefone')
                             ->disabled(),
+                        TextInput::make('service_interest')
+                            ->label('Serviço de interesse')
+                            ->disabled()
+                            ->columnSpanFull(),
                         TextInput::make('ip_address')
                             ->label('IP de origem')
-                            ->disabled(),
+                            ->disabled()
+                            ->columnSpanFull(),
                     ])
                     ->columns(2)
                     ->columnSpanFull(),

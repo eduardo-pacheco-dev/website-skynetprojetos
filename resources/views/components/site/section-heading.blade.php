@@ -2,8 +2,8 @@
 
 <div class="{{ $align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl' }}">
     @if($eyebrow)
-        <p class="mb-3 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-cyan-300 uppercase">
-            <span class="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
+        <p class="mb-4 inline-flex items-center gap-3 technical-label">
+            <span class="h-px w-8 bg-technical-500"></span>
             {{ $eyebrow }}
         </p>
     @endif

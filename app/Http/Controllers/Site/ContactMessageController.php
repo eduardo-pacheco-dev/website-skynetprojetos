@@ -16,11 +16,21 @@ class ContactMessageController
 
     public function store(StoreContactMessageRequest $request): RedirectResponse
     {
+        $data = $request->safe()->only([
+            'name',
+            'company',
+            'email',
+            'phone',
+            'service_interest',
+            'message',
+        ]);
+
         ContactMessage::create([
-            ...$request->safe()->except('website'),
+            ...$data,
+            'subject' => $data['service_interest'],
             'ip_address' => $request->ip(),
         ]);
 
-        return back()->with('status', 'Mensagem enviada com sucesso! Entraremos em contato em breve.');
+        return back()->with('status', 'Solicitação enviada com sucesso! Nossa equipe técnica entrará em contato em até um dia útil.');
     }
 }

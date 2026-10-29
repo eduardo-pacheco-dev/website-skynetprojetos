@@ -32,14 +32,23 @@ class ContactMessagesTable
                     ->label('Nome')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('company')
+                    ->label('Empresa')
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('email')
                     ->label('E-mail')
                     ->searchable()
                     ->copyable(),
+                TextColumn::make('service_interest')
+                    ->label('Serviço')
+                    ->badge()
+                    ->searchable(),
                 TextColumn::make('subject')
                     ->label('Assunto')
                     ->searchable()
-                    ->limit(50),
+                    ->limit(50)
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->label('Recebida em')
                     ->dateTime('d/m/Y H:i')
