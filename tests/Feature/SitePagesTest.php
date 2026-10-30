@@ -21,11 +21,11 @@ class SitePagesTest extends TestCase
     {
         $this->get('/')
             ->assertOk()
-            ->assertSee('Site em construção')
-            ->assertSee('Estamos preparando')
+            ->assertSee('Em construção')
+            ->assertSee('Nosso novo site está em construção.')
             ->assertSee('Skynet Projetos e Consultoria')
             ->assertSee('68.340.372/0001-09')
-            ->assertSee('Em breve');
+            ->assertSee('Em desenvolvimento');
     }
 
     public function test_all_previous_site_pages_were_removed(): void

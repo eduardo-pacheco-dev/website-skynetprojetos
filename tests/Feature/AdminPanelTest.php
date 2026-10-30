@@ -67,6 +67,7 @@ class AdminPanelTest extends TestCase
             '/admin/projects/create',
             '/admin/contact-messages',
             '/admin/configuracoes',
+            '/admin/pagina-em-construcao',
         ];
 
         foreach ($routes as $route) {

@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "Agentic UX Design - Relationship-Centric Interfaces": {
+      "source": "bencium/bencium-marketplace",
+      "sourceType": "github",
+      "skillPath": "relationship-design/skills/relationship-design/SKILL.md",
+      "computedHash": "abfc172573cc91ee0faee6066ae15b0e46598e9029de8400e202d606e45d6d69"
+    },
     "SVG Logo Designer": {
       "source": "rknall/claude-skills",
       "sourceType": "github",
@@ -18,6 +24,12 @@
       "sourceType": "github",
       "skillPath": "skills/optional/create-svg-illustrations/SKILL.md",
       "computedHash": "e0cb48042d8bd52d34ce337577c164e31559a69c21827126976c40cb9e829be0"
+    },
+    "penpot-uiux-design": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/penpot-uiux-design/SKILL.md",
+      "computedHash": "cd29e08bb7d2d4b9212582bcd9b70823619fbc6397078b8ba853962054ba4230"
     },
     "svg-animation": {
       "source": "iart-ai/web-animation-skills",

@@ -30,6 +30,9 @@ class SettingSeeder extends Seeder
             'stat_clients' => '350',
             'stat_years' => '18',
             'ga_measurement_id' => '',
+            'construction_enabled' => '1',
+            'construction_title' => 'Nosso novo site está em construção.',
+            'construction_message' => 'Estamos preparando uma nova experiência digital para apresentar nossas soluções em engenharia de telecomunicações, rollout documental e qualidade.',
         ];
 
         Setting::setMany($settings);
