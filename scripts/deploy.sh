@@ -116,9 +116,8 @@ cleanup() {
     fi
 }
 
-printf '\n%s╭──────────────────────────────────────────────────────────╮%s\n' "$C_BOLD" "$C_RESET"
-printf '%s│%s  %s SKYNET · DEPLOY%s                                      %s│%s\n' "$C_BOLD" "$C_RESET" "$C_BLUE" "$C_RESET" "$C_BOLD" "$C_RESET"
-printf '%s╰──────────────────────────────────────────────────────────╯%s\n' "$C_BOLD" "$C_RESET"
+printf '\n%sSKYNET · DEPLOY%s\n' "$C_BOLD" "$C_RESET"
+printf '%s\n' "────────────────────────────────────────────────────────────"
 printf '  %sAplicação%s  %s\n' "$C_DIM" "$C_RESET" "$APP_PATH"
 printf '  %sBranch%s      %s\n' "$C_DIM" "$C_RESET" "$BRANCH"
 printf '  %sHost%s        %s\n' "$C_DIM" "$C_RESET" "$(hostname)"
@@ -265,9 +264,8 @@ else
 fi
 
 DURATION=$(format_duration $(( $(date +%s) - START_TIME )))
-printf '\n%s╭──────────────────────────────────────────────────────────╮%s\n' "$C_GREEN" "$C_RESET"
-printf '%s│%s  %s✓ Deploy concluído com sucesso%s                        %s│%s\n' "$C_GREEN" "$C_RESET" "$C_GREEN" "$C_RESET" "$C_GREEN" "$C_RESET"
-printf '%s╰──────────────────────────────────────────────────────────╯%s\n' "$C_GREEN" "$C_RESET"
+printf '\n%s✓ Deploy concluído com sucesso%s\n' "$C_GREEN" "$C_RESET"
+printf '%s\n' "────────────────────────────────────────────────────────────"
 printf '  %sCommit%s      %s\n' "$C_DIM" "$C_RESET" "$CURRENT_COMMIT"
 printf '  %sEtapas%s      %s/%s\n' "$C_DIM" "$C_RESET" "$STEP" "$TOTAL_STEPS"
 printf '  %sDuração%s     %s\n' "$C_DIM" "$C_RESET" "$DURATION"
