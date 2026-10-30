@@ -25,7 +25,9 @@ class SitePagesTest extends TestCase
             ->assertSee('Nosso novo site está em construção.')
             ->assertSee('Skynet Projetos e Consultoria')
             ->assertSee('68.340.372/0001-09')
-            ->assertSee('Em desenvolvimento');
+            ->assertSee('Em desenvolvimento')
+            ->assertSee('eduardo@skynetprojetos.com.br')
+            ->assertSee('+55 (91) 98438-7990');
     }
 
     public function test_all_previous_site_pages_were_removed(): void
