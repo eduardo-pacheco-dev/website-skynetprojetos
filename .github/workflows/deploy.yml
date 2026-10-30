@@ -103,6 +103,17 @@ jobs:
 
           chmod 644 "$HOME/.ssh/known_hosts"
 
+      - name: Validate deploy key
+        if: steps.config.outputs.configured == 'true'
+        run: |
+          set -euo pipefail
+          ssh-keygen -y -f "$HOME/.ssh/deploy_key" > "$HOME/.ssh/deploy_key.pub"
+          echo "Fingerprint da chave de deploy:"
+          ssh-keygen -lf "$HOME/.ssh/deploy_key.pub"
+          echo
+          echo "Adicione esta chave pública ao authorized_keys do usuário ${{ secrets.VPS_USER }} na VPS:"
+          cat "$HOME/.ssh/deploy_key.pub"
+
       - name: Deploy over SSH
         if: steps.config.outputs.configured == 'true'
         env:
