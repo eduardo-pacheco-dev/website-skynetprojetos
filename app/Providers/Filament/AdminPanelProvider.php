@@ -31,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('SkyNet Projetos')
+            ->brandName('Skynet Projetos e Consultoria')
             ->colors([
                 'primary' => Color::hex('#c8102e'),
             ])

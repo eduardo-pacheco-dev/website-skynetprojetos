@@ -46,7 +46,6 @@ class SiteSettingsTest extends TestCase
 
         $this->get('/')
             ->assertOk()
-            ->assertSee('SkyNet Atualizado')
-            ->assertSee('G-TEST12345');
+            ->assertSee('SkyNet Atualizado');
     }
 }

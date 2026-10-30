@@ -1,11 +1,35 @@
 {
   "version": 1,
   "skills": {
+    "SVG Logo Designer": {
+      "source": "rknall/claude-skills",
+      "sourceType": "github",
+      "skillPath": "svg-logo-designer/SKILL.md",
+      "computedHash": "c591208a052cc9f7deb77be1183e4627daf54dbf575ea2653f519f29fe3bd4c8"
+    },
     "Webdesign": {
       "source": "danielmiessler/lifeos",
       "sourceType": "github",
       "skillPath": "LifeOS/install/skills/Webdesign/SKILL.md",
       "computedHash": "1fe5ea03fbae2700db4447b53b21198a7499e2e58e78d1f2b9a225c36da7ec1f"
+    },
+    "create-svg-illustrations": {
+      "source": "narumiruna/skills",
+      "sourceType": "github",
+      "skillPath": "skills/optional/create-svg-illustrations/SKILL.md",
+      "computedHash": "e0cb48042d8bd52d34ce337577c164e31559a69c21827126976c40cb9e829be0"
+    },
+    "svg-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "sourceType": "github",
+      "skillPath": "skills/svg-animation/SKILL.md",
+      "computedHash": "b6902577f093a1cd724052b94e633154cb42020b5001138185982fb4ce230404"
+    },
+    "svg-diagram": {
+      "source": "bybit-exchange/svg-diagram",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "f9c20050e9d3b4f3470fc14dc82c6a6766137b4cab249a3a3e654f4dc96d3922"
     },
     "swiss-design": {
       "source": "zeke/swiss-design-skill",

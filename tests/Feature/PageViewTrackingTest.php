@@ -27,7 +27,7 @@ class PageViewTrackingTest extends TestCase
 
     public function test_non_get_requests_are_not_recorded(): void
     {
-        $this->post(route('contact.store'), [])->assertRedirect();
+        $this->post('/contato', [])->assertNotFound();
 
         $this->assertDatabaseCount('page_views', 0);
     }
@@ -67,13 +67,13 @@ class PageViewTrackingTest extends TestCase
             'referrer_host' => 'www.google.com',
         ]);
 
-        $this->withHeader('Referer', config('app.url').'/sobre')
-            ->get('/servicos')
+        $this->withHeader('Referer', config('app.url').'/#inicio')
+            ->get('/?origem=interno')
             ->assertOk();
 
         $this->assertDatabaseCount('page_views', 2);
         $this->assertDatabaseHas('page_views', [
-            'path' => '/servicos',
+            'path' => '/',
             'referrer_host' => null,
         ]);
     }

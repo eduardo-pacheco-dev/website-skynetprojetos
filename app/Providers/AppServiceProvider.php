@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -30,16 +29,9 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale(config('app.locale'));
 
         View::composer(
-            ['site.*', 'components.site.*', 'components.layouts.site'],
+            'site.*',
             function (ViewInstance $view): void {
                 $view->with('siteSettings', Setting::values());
-            },
-        );
-
-        View::composer(
-            'components.layouts.site',
-            function (ViewInstance $view): void {
-                $view->with('footerServices', Service::query()->active()->ordered()->take(5)->get());
             },
         );
     }

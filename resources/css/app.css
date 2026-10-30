@@ -4,19 +4,21 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'IBM Plex Sans', 'Hanken Grotesk', 'Barlow', 'DM Sans', system-ui, sans-serif;
+    --font-sans: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
 
+    --color-canvas: #f8f9fa;
+    --color-ink: #111827;
     --color-accent: #c8102e;
+    --color-wine: #7f1d1d;
 }
 
 @layer base {
     html {
         color-scheme: light;
-        scroll-behavior: smooth;
     }
 
     body {
-        @apply bg-stone-50 font-sans text-stone-900 antialiased;
+        @apply bg-canvas font-sans text-ink antialiased;
     }
 
     ::selection {
@@ -28,10 +30,6 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-        html {
-            scroll-behavior: auto;
-        }
-
         *,
         *::before,
         *::after {
@@ -43,36 +41,10 @@
 }
 
 @layer utilities {
-    .swiss-grid {
+    .grid-paper {
         background-image:
-            linear-gradient(to right, rgba(28, 25, 23, 0.06) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(28, 25, 23, 0.06) 1px, transparent 1px);
-        background-size: 48px 48px;
-    }
-
-    .reveal {
-        opacity: 1;
-        transform: none;
-    }
-
-    .js .reveal {
-        opacity: 0;
-        transform: translateY(16px);
-        transition:
-            opacity 0.5s ease-out,
-            transform 0.5s ease-out;
-    }
-
-    .js .reveal.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .js .reveal {
-            opacity: 1;
-            transform: none;
-            transition: none;
-        }
+            linear-gradient(to right, rgba(17, 24, 39, 0.07) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(17, 24, 39, 0.07) 1px, transparent 1px);
+        background-size: 40px 40px;
     }
 }

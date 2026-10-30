@@ -13,12 +13,12 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         $settings = [
-            'site_name' => 'SkyNet Projetos',
-            'tagline' => 'Engenharia de Telecomunicações e Infraestrutura de Alta Performance',
-            'hero_title' => 'Excelência e precisão em infraestrutura e engenharia de telecomunicações',
-            'hero_subtitle' => 'Vistorias técnicas, implantação de ERBs, projetos de swap e auditorias de conformidade para operadoras, torre companies e provedores em todo o Brasil.',
-            'about_title' => 'Engenharia de campo com segurança, conformidade e rastreabilidade',
-            'about_text' => 'A SkyNet Projetos atua em engenharia de telecomunicações e infraestrutura de alta performance, apoiando operadoras, torre companies e provedores em vistorias, implantações, swap e auditorias de conformidade em todo o Brasil.',
+            'site_name' => 'Skynet Projetos e Consultoria',
+            'tagline' => 'Rollout Documental & Qualidade para Redes 4G/5G',
+            'hero_title' => 'Rollout Documental & Qualidade para Redes 4G/5G',
+            'hero_subtitle' => 'Proposta técnica e operacional de excelência em engenharia de telecomunicações para a BST Networks.',
+            'about_title' => 'Engenharia de telecomunicações com disciplina de campo',
+            'about_text' => 'A Skynet Projetos e Consultoria atua em rollout documental, qualidade com DEC, engenharia de rádio frequência e vistorias técnicas para redes 4G/5G.',
             'email' => 'contato@skynetprojetos.com.br',
             'phone' => '+55 (11) 99999-0000',
             'whatsapp' => '5511999990000',
