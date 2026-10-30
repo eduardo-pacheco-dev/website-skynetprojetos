@@ -44,14 +44,85 @@ KEEP_BACKUPS="${KEEP_BACKUPS:-10}"
 
 APP_PATH="${APP_PATH%/}"
 
-log() {
-    printf '\n==> %s\n' "$*"
+if [ -t 1 ] || [ "${GITHUB_ACTIONS:-}" = "true" ]; then
+    C_RESET=$'\033[0m'
+    C_BOLD=$'\033[1m'
+    C_DIM=$'\033[2m'
+    C_BLUE=$'\033[34m'
+    C_GREEN=$'\033[32m'
+    C_YELLOW=$'\033[33m'
+    C_RED=$'\033[31m'
+else
+    C_RESET=""
+    C_BOLD=""
+    C_DIM=""
+    C_BLUE=""
+    C_GREEN=""
+    C_YELLOW=""
+    C_RED=""
+fi
+
+START_TIME=$(date +%s)
+STEP=0
+if [ "$MAINTENANCE_MODE" = "1" ]; then
+    TOTAL_STEPS=11
+else
+    TOTAL_STEPS=10
+fi
+CURRENT_STEP="Inicialização"
+
+step() {
+    STEP=$((STEP + 1))
+    CURRENT_STEP="$*"
+    printf '\n%s[%02d/%02d]%s %s%s%s %s%s%s\n' \
+        "$C_BLUE" "$STEP" "$TOTAL_STEPS" "$C_RESET" \
+        "$C_BOLD" "$*" "$C_RESET" \
+        "$C_DIM" "$(date +%H:%M:%S)" "$C_RESET"
+}
+
+ok() {
+    printf '       %s✓%s %s\n' "$C_GREEN" "$C_RESET" "$*"
+}
+
+warn() {
+    printf '       %s!%s %s\n' "$C_YELLOW" "$C_RESET" "$*"
+}
+
+info() {
+    printf '       %s·%s %s\n' "$C_DIM" "$C_RESET" "$*"
 }
 
 fail() {
-    printf 'ERRO: %s\n' "$*" >&2
+    printf '\n       %s✗ ERRO:%s %s\n' "$C_RED" "$C_RESET" "$*" >&2
     exit 1
 }
+
+format_duration() {
+    local seconds=$1
+    printf '%02dm%02ds' "$((seconds / 60))" "$((seconds % 60))"
+}
+
+cleanup() {
+    local code=$?
+
+    if [ "$WENT_DOWN" = "1" ]; then
+        "$PHP_BIN" artisan up >/dev/null 2>&1 || true
+    fi
+
+    if [ "$code" -ne 0 ]; then
+        printf '\n%s✗ Deploy interrompido%s na etapa %s%s%s após %s.\n' \
+            "$C_RED" "$C_RESET" "$C_BOLD" "$CURRENT_STEP" "$C_RESET" \
+            "$(format_duration $(( $(date +%s) - START_TIME )))" >&2
+    fi
+}
+
+printf '\n%s╭──────────────────────────────────────────────────────────╮%s\n' "$C_BOLD" "$C_RESET"
+printf '%s│%s  %s SKYNET · DEPLOY%s                                      %s│%s\n' "$C_BOLD" "$C_RESET" "$C_BLUE" "$C_RESET" "$C_BOLD" "$C_RESET"
+printf '%s╰──────────────────────────────────────────────────────────╯%s\n' "$C_BOLD" "$C_RESET"
+printf '  %sAplicação%s  %s\n' "$C_DIM" "$C_RESET" "$APP_PATH"
+printf '  %sBranch%s      %s\n' "$C_DIM" "$C_RESET" "$BRANCH"
+printf '  %sHost%s        %s\n' "$C_DIM" "$C_RESET" "$(hostname)"
+printf '  %sInício%s      %s\n' "$C_DIM" "$C_RESET" "$(date '+%d/%m/%Y %H:%M:%S')"
 
 if [ ! -d "$APP_PATH/.git" ]; then
     fail "Diretório de aplicação inválido: $APP_PATH"
@@ -88,54 +159,62 @@ if command -v flock >/dev/null 2>&1; then
 fi
 
 WENT_DOWN=0
-cleanup() {
-    if [ "$WENT_DOWN" = "1" ]; then
-        "$PHP_BIN" artisan up >/dev/null 2>&1 || true
-    fi
-}
 trap cleanup EXIT
 
-log "Atualizando código em $APP_PATH"
+step "Validando ambiente"
+ok "Ambiente validado"
+
+step "Atualizando código"
 git fetch --prune origin "$BRANCH"
 git reset --hard "origin/$BRANCH"
+CURRENT_COMMIT=$(git log -1 --format='%h %s')
+ok "$CURRENT_COMMIT"
 
+step "Preparando backup"
 if [ -f database/database.sqlite ]; then
-    log "Criando backup do SQLite"
     mkdir -p storage/backups
-    cp database/database.sqlite "storage/backups/database-$(date +%Y%m%d-%H%M%S).sqlite"
+    BACKUP_FILE="storage/backups/database-$(date +%Y%m%d-%H%M%S).sqlite"
+    cp database/database.sqlite "$BACKUP_FILE"
+    ok "Backup criado: $(basename "$BACKUP_FILE")"
 
     if [ "$KEEP_BACKUPS" -gt 0 ] 2>/dev/null; then
         ls -1t storage/backups/database-*.sqlite 2>/dev/null | tail -n "+$((KEEP_BACKUPS + 1))" | xargs -r rm -f || true
+        ok "Retenção: últimos $KEEP_BACKUPS backups"
     fi
+else
+    info "Sem banco SQLite local; backup ignorado"
 fi
 
+step "Configurando modo manutenção"
 if [ "$MAINTENANCE_MODE" = "1" ]; then
-    log "Ativando modo manutenção"
     "$PHP_BIN" artisan down --retry=30 --refresh=5 >/dev/null 2>&1 || true
     WENT_DOWN=1
+    ok "Modo manutenção ativado"
+else
+    info "Modo manutenção desativado"
 fi
 
-log "Instalando dependências PHP"
+step "Instalando dependências PHP"
 "$COMPOSER_BIN" install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader
+ok "Dependências instaladas"
 
-log "Compilando assets"
+step "Compilando assets"
 npm ci --no-audit --no-fund
 npm run build
+ok "Assets compilados"
 
-log "Executando migrations"
+step "Executando migrations e publicando assets"
 "$PHP_BIN" artisan migrate --force
-
-log "Atualizando link público de storage"
 "$PHP_BIN" artisan storage:link >/dev/null 2>&1 || true
-
-log "Publicando assets do Filament"
 "$PHP_BIN" artisan filament:assets >/dev/null 2>&1 || true
+ok "Banco e assets atualizados"
 
-log "Otimizando Laravel"
-"$PHP_BIN" artisan optimize:clear
-"$PHP_BIN" artisan optimize
+step "Otimizando caches"
+"$PHP_BIN" artisan optimize:clear >/dev/null
+"$PHP_BIN" artisan optimize >/dev/null
+ok "Configuração, rotas e views em cache"
 
-log "Ajustando permissões"
+step "Ajustando permissões"
 if [ "$(id -u)" -eq 0 ]; then
     chown -R "$WEB_USER:$WEB_USER" storage bootstrap/cache
     chmod -R ug+rwX storage bootstrap/cache
@@ -148,16 +227,17 @@ elif sudo -n true >/dev/null 2>&1; then
     sudo -n chmod 640 .env
 else
     chmod -R ug+rwX storage bootstrap/cache 2>/dev/null || true
-    printf 'Aviso: sem root/sudo para ajustar owner de storage e .env.\n' >&2
+    warn "Sem root/sudo para ajustar owner de storage e .env"
 fi
 
 if [ "$WENT_DOWN" = "1" ]; then
-    log "Desativando modo manutenção"
+    step "Desativando modo manutenção"
     "$PHP_BIN" artisan up >/dev/null 2>&1 || true
     WENT_DOWN=0
+    ok "Modo manutenção desativado"
 fi
 
-log "Recarregando serviços"
+step "Recarregando serviços e verificando saúde"
 if [ "$(id -u)" -eq 0 ]; then
     systemctl reload "$PHP_FPM_SERVICE" 2>/dev/null || true
     systemctl reload "$WEB_SERVICE" 2>/dev/null || true
@@ -165,18 +245,30 @@ elif sudo -n true >/dev/null 2>&1; then
     sudo -n systemctl reload "$PHP_FPM_SERVICE" 2>/dev/null || true
     sudo -n systemctl reload "$WEB_SERVICE" 2>/dev/null || true
 fi
+ok "Serviços recarregados"
 
 if [ -n "$HEALTHCHECK_URL" ]; then
-    log "Verificando saúde da aplicação"
-    for _ in $(seq 1 10); do
+    HEALTHY=0
+    for attempt in $(seq 1 10); do
         if curl -fsS -o /dev/null "$HEALTHCHECK_URL"; then
-            log "Deploy concluído com sucesso"
-            exit 0
+            HEALTHY=1
+            break
         fi
+        info "Tentativa $attempt/10 aguardando aplicação..."
         sleep 2
     done
 
-    fail "Healthcheck falhou: $HEALTHCHECK_URL"
+    [ "$HEALTHY" = "1" ] || fail "Healthcheck falhou: $HEALTHCHECK_URL"
+    ok "Healthcheck aprovado"
+else
+    info "Healthcheck não configurado"
 fi
 
-log "Deploy concluído com sucesso"
+DURATION=$(format_duration $(( $(date +%s) - START_TIME )))
+printf '\n%s╭──────────────────────────────────────────────────────────╮%s\n' "$C_GREEN" "$C_RESET"
+printf '%s│%s  %s✓ Deploy concluído com sucesso%s                        %s│%s\n' "$C_GREEN" "$C_RESET" "$C_GREEN" "$C_RESET" "$C_GREEN" "$C_RESET"
+printf '%s╰──────────────────────────────────────────────────────────╯%s\n' "$C_GREEN" "$C_RESET"
+printf '  %sCommit%s      %s\n' "$C_DIM" "$C_RESET" "$CURRENT_COMMIT"
+printf '  %sEtapas%s      %s/%s\n' "$C_DIM" "$C_RESET" "$STEP" "$TOTAL_STEPS"
+printf '  %sDuração%s     %s\n' "$C_DIM" "$C_RESET" "$DURATION"
+printf '  %sConcluído%s   %s\n\n' "$C_DIM" "$C_RESET" "$(date '+%d/%m/%Y %H:%M:%S')"

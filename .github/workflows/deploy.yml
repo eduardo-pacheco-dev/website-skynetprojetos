@@ -139,5 +139,31 @@ jobs:
             -o IdentitiesOnly=yes \
             -o StrictHostKeyChecking=yes \
             "$VPS_USER@$VPS_HOST" \
-            "APP_PATH=$APP_PATH_Q PHP_BIN=$PHP_BIN_Q HEALTHCHECK_URL=$HEALTHCHECK_Q bash -s" \
+            "APP_PATH=$APP_PATH_Q PHP_BIN=$PHP_BIN_Q HEALTHCHECK_URL=$HEALTHCHECK_Q GITHUB_ACTIONS=true bash -s" \
             < scripts/deploy.sh
+
+      - name: Write deployment summary
+        if: steps.config.outputs.configured == 'true' && success()
+        run: |
+          {
+            echo "## Deploy concluído"
+            echo ""
+            echo "- **Commit:** \`${{ github.sha }}\`"
+            echo "- **Branch:** \`${{ github.ref_name }}\`"
+            echo "- **Host:** \`${{ secrets.VPS_HOST }}\`"
+            echo "- **Aplicação:** \`${{ secrets.VPS_APP_PATH }}\`"
+            echo "- **Workflow:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Write failure summary
+        if: steps.config.outputs.configured == 'true' && failure()
+        run: |
+          {
+            echo "## Falha no deploy"
+            echo ""
+            echo "- **Commit:** \`${{ github.sha }}\`"
+            echo "- **Host:** \`${{ secrets.VPS_HOST }}\`"
+            echo "- **Aplicação:** \`${{ secrets.VPS_APP_PATH }}\`"
+            echo ""
+            echo "Consulte o log do step **Deploy over SSH** para identificar a etapa que falhou."
+          } >> "$GITHUB_STEP_SUMMARY"
