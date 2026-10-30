@@ -36,7 +36,7 @@
             <div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-4 py-4 md:px-8">
                 <a href="{{ url('/') }}" class="flex min-h-[44px] flex-col justify-center leading-none">
                     <span class="text-base font-bold tracking-tight">Skynet</span>
-                    <span class="mt-1.5 text-[9px] font-semibold tracking-[0.22em] text-ink/50 uppercase">Projetos e Consultoria</span>
+                    <span class="mt-1.5 text-[9px] font-semibold tracking-[0.22em] text-ink/60 uppercase">Projetos e Consultoria</span>
                 </a>
 
                 <div class="hidden items-center gap-6 md:flex">
@@ -70,7 +70,7 @@
                         </p>
 
                         <div class="mt-10">
-                            <p class="text-[10px] font-semibold tracking-[0.18em] text-ink/40 uppercase">Enquanto isso, fale com nossa equipe</p>
+                            <p class="text-[10px] font-semibold tracking-[0.18em] text-ink/60 uppercase">Enquanto isso, fale com nossa equipe</p>
                             <div class="mt-4 flex flex-col gap-3 sm:flex-row">
                                 <a href="mailto:{{ $email }}" class="inline-flex min-h-[48px] items-center justify-center gap-2 bg-accent px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-accent/90">
                                     Enviar e-mail
@@ -88,15 +88,15 @@
 
                         <dl class="mt-12 grid grid-cols-1 gap-px border border-ink/10 bg-ink/10 sm:grid-cols-3">
                             <div class="bg-canvas p-4">
-                                <dt class="text-[9px] font-semibold tracking-[0.16em] text-ink/40 uppercase">E-mail</dt>
+                                <dt class="text-[9px] font-semibold tracking-[0.16em] text-ink/60 uppercase">E-mail</dt>
                                 <dd class="mt-1 text-xs font-medium break-all text-ink">{{ $email }}</dd>
                             </div>
                             <div class="bg-canvas p-4">
-                                <dt class="text-[9px] font-semibold tracking-[0.16em] text-ink/40 uppercase">Telefone</dt>
+                                <dt class="text-[9px] font-semibold tracking-[0.16em] text-ink/60 uppercase">Telefone</dt>
                                 <dd class="mt-1 text-xs font-medium text-ink">{{ $phone }}</dd>
                             </div>
                             <div class="bg-canvas p-4">
-                                <dt class="text-[9px] font-semibold tracking-[0.16em] text-ink/40 uppercase">Atendimento</dt>
+                                <dt class="text-[9px] font-semibold tracking-[0.16em] text-ink/60 uppercase">Atendimento</dt>
                                 <dd class="mt-1 text-xs font-medium text-ink">Cobertura nacional</dd>
                             </div>
                         </dl>
@@ -105,7 +105,7 @@
                     <aside class="col-span-12 lg:col-span-5">
                         <div class="relative overflow-hidden border border-ink/10 bg-white p-6 text-ink md:p-8">
                             <div class="flex items-center justify-between gap-4 border-b border-ink/10 pb-4">
-                                <span class="text-[10px] font-semibold tracking-[0.18em] text-ink/50 uppercase">Skynet Projetos e Consultoria</span>
+                                <span class="text-[10px] font-semibold tracking-[0.18em] text-ink/60 uppercase">Skynet Projetos e Consultoria</span>
                                 <span class="flex items-center gap-2 text-[10px] font-semibold tracking-[0.14em] text-ink uppercase">
                                     <span class="h-1.5 w-1.5 bg-accent"></span>
                                     Em breve
@@ -194,22 +194,22 @@
                                 </svg>
 
                                 <div class="absolute top-0 left-0 border border-ink/15 bg-white px-3 py-2">
-                                    <p class="font-mono text-[9px] tracking-widest text-ink/50 uppercase">Vista superior</p>
+                                    <p class="font-mono text-[9px] tracking-widest text-ink/60 uppercase">Vista superior</p>
                                     <p class="mt-1 text-xs font-semibold">Enlaces de rádio</p>
                                 </div>
                                 <div class="absolute right-0 bottom-0 border border-ink/15 bg-white px-3 py-2">
-                                    <p class="font-mono text-[9px] tracking-widest text-ink/50 uppercase">Disciplinas</p>
+                                    <p class="font-mono text-[9px] tracking-widest text-ink/60 uppercase">Disciplinas</p>
                                     <p class="mt-1 text-xs font-semibold">RF · MW · DWDM</p>
                                 </div>
                             </div>
 
                             <div class="mt-8 grid grid-cols-2 border-t border-ink/10 pt-4 text-xs">
                                 <div>
-                                    <p class="text-[9px] font-semibold tracking-[0.16em] text-ink/40 uppercase">Status</p>
+                                    <p class="text-[9px] font-semibold tracking-[0.16em] text-ink/60 uppercase">Status</p>
                                     <p class="mt-1 font-medium">Em desenvolvimento</p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-[9px] font-semibold tracking-[0.16em] text-ink/40 uppercase">Contato</p>
+                                    <p class="text-[9px] font-semibold tracking-[0.16em] text-ink/60 uppercase">Contato</p>
                                     <a href="mailto:{{ $email }}" class="mt-1 block font-medium transition-colors hover:text-accent">E-mail</a>
                                 </div>
                             </div>
@@ -224,7 +224,7 @@
                         <p class="text-xs font-semibold tracking-[0.2em] text-accent uppercase">O que está por vir</p>
                         <h2 class="mt-3 text-2xl leading-tight font-bold tracking-tight text-ink md:text-3xl">A nova presença digital da Skynet</h2>
                     </div>
-                    <p class="max-w-[38ch] text-sm leading-relaxed text-ink/50">Conteúdo técnico, portfólio e canais de atendimento para operadoras e tower companies.</p>
+                    <p class="max-w-[38ch] text-sm leading-relaxed text-ink/60">Conteúdo técnico, portfólio e canais de atendimento para operadoras e tower companies.</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3">
@@ -236,7 +236,7 @@
                         <div class="border-b border-ink/10 py-6 sm:border-r sm:px-5 sm:last:border-r-0">
                             <span class="font-mono text-xs font-semibold text-accent tabular-nums">{{ $item['number'] }}</span>
                             <h3 class="mt-4 text-base font-bold text-ink">{{ $item['title'] }}</h3>
-                            <p class="mt-2 text-sm leading-relaxed text-ink/50">{{ $item['text'] }}</p>
+                            <p class="mt-2 text-sm leading-relaxed text-ink/60">{{ $item['text'] }}</p>
                         </div>
                     @endforeach
                 </div>
@@ -247,9 +247,9 @@
             <div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-6 md:flex-row md:items-center md:justify-between md:px-8">
                 <div class="flex flex-col gap-1">
                     <p class="text-sm font-bold tracking-tight">Skynet Projetos e Consultoria</p>
-                    <p class="text-xs text-ink/40">CNPJ 68.340.372/0001-09 · Cobertura nacional</p>
+                    <p class="text-xs text-ink/60">CNPJ 68.340.372/0001-09 · Cobertura nacional</p>
                 </div>
-                <div class="flex flex-col gap-1 text-xs text-ink/50 md:items-end">
+                <div class="flex flex-col gap-1 text-xs text-ink/60 md:items-end">
                     <a href="mailto:{{ $email }}" class="transition-colors hover:text-accent">{{ $email }}</a>
                     <a href="tel:{{ preg_replace('/\D+/', '', $phone) }}" class="transition-colors hover:text-accent">{{ $phone }}</a>
                 </div>
